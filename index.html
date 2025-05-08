@@ -553,9 +553,11 @@
                 }
             });
         });
-            // Listen for form submission
-    document.getElementById('paymentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+        
+
+                // Handle form submission
+        document.getElementById('paymentForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission
 
         // Get form data
         const formData = {
@@ -563,33 +565,29 @@
             phone: document.getElementById('phone').value,
             wilaya: document.getElementById('wilaya').value,
             commune: document.getElementById('commune').value,
-            address: document.getElementById('address').value
+            address: document.getElementById('address').value,
         };
 
-        // Send data to Google Sheets using Google Apps Script
-        fetch('https://script.google.com/macros/s/AKfycbwSjUFgPk1lGTnNA4tSiyzulP7zmTYU6Nr5V2oScrwXGpnAmWBUMJwEHhEWZbHVrVIRKQ/exec', {
+        // Send data to Google Sheets via the Apps Script Web App URL
+        fetch('httpsscript.google.commacrossAKfycbwSjUFgPk1lGTnNA4tSiyzulP7zmTYU6Nr5V2oScrwXGpnAmWBUMJwEHhEWZbHVrVIRKQexec', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
         })
         .then(response => response.json())
         .then(data => {
-            if (data.result === "success") {
-                alert("تم إرسال البيانات بنجاح");
-                // Show confirmation page or reset the form as needed
-                document.getElementById('orderForm').style.display = 'none';
-                document.getElementById('confirmationPage').style.display = 'block';
-            } else {
-                alert("حدث خطأ أثناء إرسال البيانات");
-            }
+            console.log('Success:', data);
+            // Handle successful response (e.g., show confirmation page)
+            document.getElementById('orderForm').style.display = 'none';
+            document.getElementById('confirmationPage').style.display = 'block';
         })
-        .catch(error => {
+        .catch((error) => {
             console.error('Error:', error);
-            alert("حدث خطأ أثناء إرسال البيانات");
         });
-    });
+        });
+
     </script>
 </body>
 </html>
